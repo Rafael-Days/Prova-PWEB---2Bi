@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./styles.css" />
 </head>
+
 <body>
     <header>
         <div id="header">
             Portal de Notícias do IBGE
         </div>
-        <div id="dialog">
-            <form method="dialog">
+        <div id="div-search">
+            <form id="form-search">
                 <input type="search" name="search" id="search" placeholder="Buscar Notícia por Termo" required />
                 <input type="submit" id="submit" value="🔍" />
             </form>
+            <!---------------------------------------------------------------------->
+            <button id="abrir-filtro">Abrir Filtro</button>
+            <dialog id="dialog-filtro">
+                <form method="dialog" id="form-filtro">
+                    <input type="button" id="button-filtro" value="Botão com Ícone"/>
+                </form>
+            </dialog>
         </div>
+
     </header>
-    <main></main>
+    <main>
+        
+    </main>
 </body>
+    <script src="./index.js"></script>
 </html>
