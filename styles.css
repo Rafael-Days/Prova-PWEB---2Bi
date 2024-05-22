@@ -19,18 +19,28 @@ header{
 
 #search {
     width: 60vw;
+    height: 5vh;
+    border-radius: 7px;
 }
 
 #submit{
     background-color: white;
     padding: 0;
+    border-radius: 7px;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+    position: absolute; 
+    top: 0;
+    right: 0; 
+    height: 100%; 
+    width: 40px;
 }
 
 form{
-    display: flex;
-    align-items: center;
+    position: relative;
 }
-
 
 
 main {
