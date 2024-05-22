@@ -1,0 +1,42 @@
+body {
+    display: grid;
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #4682b4;
+    color: white;
+    padding: 40px 40px;
+}
+
+#header{
+    padding: 20px 20px;
+}
+
+#search {
+    width: 60vw;
+}
+
+#submit{
+    background-color: white;
+    padding: 0;
+}
+
+form{
+    display: flex;
+    align-items: center;
+}
+
+
+
+main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 20px;
+    background-color: yellow;
+  }
+  
