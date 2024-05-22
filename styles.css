@@ -1,5 +1,6 @@
 body {
     display: grid;
+    margin: 0;
 }
 
 header{
@@ -10,17 +11,20 @@ header{
     justify-content: space-around;
     background-color: #4682b4;
     color: white;
-    padding: 40px 40px;
+    padding: 30px 30px;
 }
 
 #header{
-    padding: 20px 20px;
+    padding-bottom: 30px;
+    font-size: 35px;
+    font-weight: bold;
 }
 
 #search {
     width: 60vw;
     height: 5vh;
     border-radius: 7px;
+    padding-left: 10px;
 }
 
 #submit{
