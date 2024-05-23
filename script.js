@@ -4,6 +4,7 @@ const botaoFiltro = document.getElementById('button-filtro');
 
 // Adiciona um event listener para abrir o modal quando o botão for clicado
 botaoAbrirFiltro.addEventListener('click', () => {
+    alert('isso')
     document.getElementById('dialog-filtro').showModal();
 });
 
