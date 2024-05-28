@@ -6,9 +6,15 @@ const closeButton = document.getElementById('close-button')
 
 const dialogF = document.getElementById('dialog-filtro')
 
+//URL e Main
+const apiUrl = "https://servicodados.ibge.gov.br/api/v3/noticias?qtd=10"
+
+const main = document.querySelector("main")
+
+//Header
+
 // Adiciona um event listener para abrir o modal quando o botão for clicado
 botaoAbrirFiltro.addEventListener('click', () => {
-    alert('isso')
     dialogF.showModal()
 });
 
@@ -20,7 +26,38 @@ closeButton.addEventListener('click', () => {
 function enviar(e) {
     e.preventDefault()
 }
-// https://github.com/TI-UNICESUMAR/2024-programacao-web-esoft5s-b/blob/main/2024-04-16-resolucao-atividade-slides-form/slides.md
+
+//Main
+
+document.addEventListener('DOMContentLoaded', () => {
+    asyncFoo()
+})
 
 
+async function asyncFoo() {
+    
+    try {
+        const fetchedData = await fetch(apiUrl);
+        const jsonData = await fetchedData.json();
+        
+        let html = ''
+
+        for (let i = 0; i < 10; i++) {
+            html += `
+            <div class="div">
+                <h2>${jsonData.items[i].titulo}</h2>
+                <h3>${jsonData.items[i].introducao}</h3>
+            </div>
+        `
+        }
+        main.innerHTML = html
+    } catch (e) {
+        main.innerHTML = `
+            <div class="div">
+                <h2>${JSON.stringify(e)}</h2>
+            </div>
+        `;
+        console.log(e.message);
+    }
+}
 
