@@ -25,9 +25,10 @@ closeButton.addEventListener('click', () => {
     dialogF.close();
 });
 
+//Main
 
-document.getElementById("form-search").addEventListener("submit", async function(event) {
-    event.preventDefault(); 
+document.getElementById("form-search").addEventListener("submit", async function (event) {
+    //event.preventDefault();
 
     const termoBusca = document.getElementById("search").value;
 
@@ -37,35 +38,25 @@ document.getElementById("form-search").addEventListener("submit", async function
         const response = await fetch(apiUrlSearch);
         const jsonDataSearch = await response.json();
 
-        let html = ''
-
-        for (let i = 0; i < 10; i++) {
-            html += `
-            <div class="div">
-                <ul>
-                    <li>
-                        <h2>${jsonDataSearch.items[i].titulo}</h2>
-                        <p>${jsonDataSearch.items[i].introducao}</p>
-                        <img src="${jsonDataSearch.items[i].imagens}" alt="Imagem da Notícia"/>
-                    </li>
-                </ul>
-            </div>
-        `
-        }
-        main.innerHTML = html
+        updateMainContent(jsonDataSearch); 
 
     } catch (error) {
-        console.error("Ocorreu um erro ao buscar na API:", error);
+        console.error("Ocorreu um erro ao buscar:", error);
     }
 });
 
 
-//Main
-
 document.addEventListener('DOMContentLoaded', () => {
-    asyncFoo()
-})
+    const termoBuscaSalvo = localStorage.getItem('termoBusca'); 
 
+    if (termoBuscaSalvo) {
+        // Se houver um termo de busca salvo, executa a busca
+        document.getElementById("search").value = termoBuscaSalvo;
+        document.getElementById("form-search").dispatchEvent(new Event('submit')); 
+    } else {
+        asyncFoo();
+    }
+});
 
 async function asyncFoo() {
 
@@ -73,22 +64,8 @@ async function asyncFoo() {
         const fetchedData = await fetch(apiUrl);
         const jsonData = await fetchedData.json();
 
-        let html = ''
+        updateMainContent(jsonData); 
 
-        for (let i = 0; i < 10; i++) {
-            html += `
-            <div class="div">
-                <ul>
-                    <li>
-                        <h2>${jsonData.items[i].titulo}</h2>
-                        <p>${jsonData.items[i].introducao}</p>
-                        <img src="${jsonData.items[i].imagens}" alt="Imagem da Notícia"/>
-                    </li>
-                </ul>
-            </div>
-        `
-        }
-        main.innerHTML = html
     } catch (e) {
         main.innerHTML = `
             <div class="div">
@@ -99,3 +76,21 @@ async function asyncFoo() {
     }
 }
 
+function updateMainContent(data) {
+    let html = '';
+
+    for (let i = 0; i < 10; i++) {
+        html += `
+        <div class="div">
+            <ul>
+                <li>
+                    <h2>${data.items[i].titulo}</h2>
+                    <p>${data.items[i].introducao}</p>
+                    <img src="${data.items[i].imagens}" alt="Imagem da Notícia"/>
+                </li>
+            </ul>
+        </div>
+        `;
+    }
+    main.innerHTML = html;
+}
