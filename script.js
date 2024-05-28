@@ -27,7 +27,7 @@ closeButton.addEventListener('click', () => {
 
 
 document.getElementById("form-search").addEventListener("submit", async function(event) {
-    //event.preventDefault(); 
+    event.preventDefault(); 
 
     const termoBusca = document.getElementById("search").value;
 
