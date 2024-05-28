@@ -35,18 +35,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 async function asyncFoo() {
-    
+
     try {
         const fetchedData = await fetch(apiUrl);
         const jsonData = await fetchedData.json();
-        
+
         let html = ''
 
         for (let i = 0; i < 10; i++) {
             html += `
             <div class="div">
-                <h2>${jsonData.items[i].titulo}</h2>
-                <h3>${jsonData.items[i].introducao}</h3>
+                <ul>
+                    <li>
+                        <h2>${jsonData.items[i].titulo}</h2>
+                        <p>${jsonData.items[i].introducao}</p>
+                        <img src="${jsonData.items[i].imagens}" alt="Imagem da Notícia"/>
+                    </li>
+                </ul>
             </div>
         `
         }

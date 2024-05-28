@@ -1,6 +1,7 @@
 body {
     display: grid;
     margin: 0;
+    background-color: #f0f0f0;
 }
 
 header{
@@ -62,8 +63,8 @@ input[type="submit"] {
 
 main {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 0 20px;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 15vw;
     background-color: #f0f0f0;
   }
   
