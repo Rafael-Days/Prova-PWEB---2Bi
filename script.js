@@ -6,6 +6,8 @@ const closeButton = document.getElementById('close-button')
 
 const dialogF = document.getElementById('dialog-filtro')
 
+const header = document.querySelector("header")
+
 //URL e Main
 const apiUrl = "https://servicodados.ibge.gov.br/api/v3/noticias?qtd=10"
 

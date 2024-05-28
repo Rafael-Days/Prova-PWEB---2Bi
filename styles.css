@@ -67,4 +67,25 @@ main {
     margin: 0 15vw;
     background-color: #f0f0f0;
   }
-  
+
+img{
+    display: flex;
+}
+
+li::marker {
+    content: '';
+}
+ 
+ul::marker {
+    content: '';
+}
+
+footer{
+    background-color: #4682b4;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 25px 25px;
+}
