@@ -25,9 +25,40 @@ closeButton.addEventListener('click', () => {
     dialogF.close();
 });
 
-function enviar(e) {
-    e.preventDefault()
-}
+
+document.getElementById("form-search").addEventListener("submit", async function(event) {
+    //event.preventDefault(); 
+
+    const termoBusca = document.getElementById("search").value;
+
+    try {
+        const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias?q=${termoBusca}`; // URL da API com o termo de busca
+
+        const response = await fetch(apiUrlSearch);
+        const jsonDataSearch = await response.json();
+
+        let html = ''
+
+        for (let i = 0; i < 10; i++) {
+            html += `
+            <div class="div">
+                <ul>
+                    <li>
+                        <h2>${jsonDataSearch.items[i].titulo}</h2>
+                        <p>${jsonDataSearch.items[i].introducao}</p>
+                        <img src="${jsonDataSearch.items[i].imagens}" alt="Imagem da Notícia"/>
+                    </li>
+                </ul>
+            </div>
+        `
+        }
+        main.innerHTML = html
+
+    } catch (error) {
+        console.error("Ocorreu um erro ao buscar na API:", error);
+    }
+});
+
 
 //Main
 

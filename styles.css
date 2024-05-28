@@ -62,6 +62,7 @@ input[type="submit"] {
 }
 
 main {
+    max-width: 100ch;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     margin: 0 15vw;
@@ -72,12 +73,14 @@ img{
     display: flex;
 }
 
-li::marker {
-    content: '';
+li {
+    list-style-type: none;
 }
- 
-ul::marker {
-    content: '';
+
+div{/*pode mudar dps*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 footer{
