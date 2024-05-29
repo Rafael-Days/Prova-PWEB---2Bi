@@ -31,15 +31,15 @@ closeButton.addEventListener('click', () => {
 
 //Main
 
-async function getBuscaData(termoBusca){
+async function getBuscaData(termoBusca) {
     try {
         const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?busca=${termoBusca}`;
         const response = await fetch(apiUrlSearch);
         const jsonDataSearch = await response.json();
-        
+
         if (jsonDataSearch.items && jsonDataSearch.items.length > 0) {
             // Se houver resultados, atualiza o conteúdo principal
-            updateMainContent(jsonDataSearch); 
+            updateMainContent(jsonDataSearch);
         } else {
             // Se não houver resultados, exibe uma mensagem de alerta
             semBusca()
@@ -49,7 +49,7 @@ async function getBuscaData(termoBusca){
     }
 };
 
-header.addEventListener('click', function() {
+header.addEventListener('click', function () {
     // Pegar a URL atual
     const urlAtual = window.location.href;
     // Remover a parte da URL após o caminho base
@@ -58,7 +58,7 @@ header.addEventListener('click', function() {
     window.location.href = urlSemSearch;
 });
 
-function semBusca(){
+function semBusca() {
     const divSB = document.createElement('div')
     const pSB = document.createElement('p')
     const pInicio = document.createElement('p')
@@ -70,7 +70,7 @@ function semBusca(){
     pInicio.textContent = 'Clique Aqui para voltar ao Início'
 
     // Adicionando um evento de clique ao elemento pInicio
-    pInicio.addEventListener('click', function() {
+    pInicio.addEventListener('click', function () {
         // Pegar a URL atual
         const urlAtual = window.location.href;
         // Remover a parte da URL após o caminho base
@@ -89,7 +89,7 @@ function semBusca(){
 document.addEventListener('DOMContentLoaded', () => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const termoBusca = urlSearchParams.get('search');
-    
+
     if (termoBusca) {
         // Se houver um termo de busca na URL, preenche o campo de busca com esse valor
         document.getElementById("search").value = termoBusca;
@@ -108,7 +108,7 @@ async function asyncFoo() {
         const fetchedData = await fetch(apiUrl);
         const jsonData = await fetchedData.json();
 
-        updateMainContent(jsonData); 
+        updateMainContent(jsonData);
 
     } catch (e) {
         main.innerHTML = `
@@ -122,19 +122,26 @@ async function asyncFoo() {
 
 function updateMainContent(data) {
     let html = '';
-
+//<img src="${data.items[i].imagens}" alt="Imagem da Notícia"/>
     for (let i = 0; i < 10; i++) {
+
+        const imagemObjeto = JSON.parse(data.items[i].imagens);
+
+        const caminhoDaImagem = imagemObjeto.image_intro || imagemObjeto.image_fulltext;
+
         html += `
         <div class="div">
             <ul>
                 <li>
+                    <img src="${caminhoDaImagem}" alt="Imagem da Notícia"/>
                     <h2>${data.items[i].titulo}</h2>
                     <p>${data.items[i].introducao}</p>
-                    <img src="${data.items[i].imagens}" alt="Imagem da Notícia"/>
+                    <a href="${data.items[i].link}" target="_blank">${data.items[i].link}</a>
                 </li>
             </ul>
         </div>
         `;
+
     }
     main.innerHTML = html;
 }

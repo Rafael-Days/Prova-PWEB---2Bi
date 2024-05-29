@@ -14,10 +14,20 @@ header{
     padding: 30px 30px;
 }
 
+#abrir-filtro{
+    position: absolute;
+    cursor: pointer;
+    top: 10vh;
+    right: 2vh; 
+    height: 60px; 
+    width: 60px;
+}
+
 #header {
     padding-bottom: 30px;
     font-size: 35px;
     font-weight: bold;
+    cursor: pointer;
     color: white;
     transition: color 0.3s ease;
 }
@@ -68,15 +78,13 @@ input[type="submit"] {
 }
 
 main {
-    max-width: 100ch;
+    max-width: 100ch;/*OBRIGATORIO*/
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    margin: 0 15vw;
+    justify-content: center;
+    align-items: center; 
+    margin: 0 25vw;
     background-color: #f0f0f0;
-  }
-
-img{
-    display: flex;
 }
 
 li {
@@ -87,6 +95,7 @@ div{/*pode mudar dps*/
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 footer{
@@ -112,6 +121,7 @@ footer{
 
 #pInicio {
     text-decoration: none; 
+    cursor: pointer;
 }
 
 #pInicio:hover {
