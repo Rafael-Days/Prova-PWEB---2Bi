@@ -17,10 +17,22 @@ header{
 #abrir-filtro{
     position: absolute;
     cursor: pointer;
-    top: 10vh;
+    top: 12vh;
     right: 2vh; 
-    height: 60px; 
-    width: 60px;
+    height: 50px; 
+    width: 50px;
+    background-color: #4682b4;
+}
+
+#dialog-filtro{
+    width: 40vw;
+    height: 20vh;
+    border-radius: 5px; 
+}
+
+button,
+input{
+    border: 0;
 }
 
 #header {
@@ -87,15 +99,26 @@ main {
     background-color: #f0f0f0;
 }
 
-li {
-    list-style-type: none;
-}
-
 div{/*pode mudar dps*/
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+}/* DESCOBRIR ERRO  */
+
+ul{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+li {
+    list-style-type: none;
+    width: 100%;
 }
 
 footer{
