@@ -10,16 +10,22 @@ header{
     flex-wrap: wrap;
     align-items: center;
     justify-content:space-around;
-    background-color: #4682b4;
-    color: white;
+    background-color: #4682b4; 
     padding: 30px 30px;
 }
 
-#header{
+#header {
     padding-bottom: 30px;
     font-size: 35px;
     font-weight: bold;
+    color: white;
+    transition: color 0.3s ease;
 }
+
+#header:hover {
+    color: #cccccc;
+}
+
 
 #search {
     width: 50vw;
@@ -91,4 +97,24 @@ footer{
     flex-wrap: wrap;
     align-items: center;
     padding: 25px 25px;
+}
+
+#divSB{
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+}
+
+#pSB,
+#pInicio{
+    text-align: center;
+}
+
+#pInicio {
+    text-decoration: none; 
+}
+
+#pInicio:hover {
+    color: #5e5e5e;
+    text-decoration: underline;
 }

@@ -6,7 +6,7 @@ const closeButton = document.getElementById('close-button')
 
 const dialogF = document.getElementById('dialog-filtro')
 
-const header = document.querySelector("header")
+const header = document.getElementById("header")
 
 //URL e Main
 const apiUrl = "https://servicodados.ibge.gov.br/api/v3/noticias?qtd=10"
@@ -32,22 +32,58 @@ closeButton.addEventListener('click', () => {
 //Main
 
 async function getBuscaData(termoBusca){
-//document.getElementById("form-search").addEventListener("submit", async function (event) {
-
-    //event.preventDefault();
-
     try {
-        const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?busca=${termoBusca}`; // URL da API com o termo de busca
-        
+        const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?busca=${termoBusca}`;
         const response = await fetch(apiUrlSearch);
         const jsonDataSearch = await response.json();
         
-        updateMainContent(jsonDataSearch); 
-
+        if (jsonDataSearch.items && jsonDataSearch.items.length > 0) {
+            // Se houver resultados, atualiza o conteúdo principal
+            updateMainContent(jsonDataSearch); 
+        } else {
+            // Se não houver resultados, exibe uma mensagem de alerta
+            semBusca()
+        }
     } catch (error) {
         console.error("Ocorreu um erro ao buscar:", error);
     }
 };
+
+header.addEventListener('click', function() {
+    // Pegar a URL atual
+    const urlAtual = window.location.href;
+    // Remover a parte da URL após o caminho base
+    const urlSemSearch = urlAtual.split('?')[0];
+    // Redirecionar para a URL sem a parte da busca
+    window.location.href = urlSemSearch;
+});
+
+function semBusca(){
+    const divSB = document.createElement('div')
+    const pSB = document.createElement('p')
+    const pInicio = document.createElement('p')
+    divSB.setAttribute('id', 'divSB');
+    pSB.setAttribute('id', 'pSB');
+    pInicio.setAttribute('id', 'pInicio');
+
+    pSB.textContent = 'Nenhum resultado encontrado para a busca.'
+    pInicio.textContent = 'Clique Aqui para voltar ao Início'
+
+    // Adicionando um evento de clique ao elemento pInicio
+    pInicio.addEventListener('click', function() {
+        // Pegar a URL atual
+        const urlAtual = window.location.href;
+        // Remover a parte da URL após o caminho base
+        const urlSemSearch = urlAtual.split('?')[0];
+        // Redirecionar para a URL sem a parte da busca
+        window.location.href = urlSemSearch;
+    });
+
+    divSB.appendChild(pSB)
+    divSB.appendChild(pInicio)
+    main.appendChild(divSB)
+}
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
