@@ -11,6 +11,10 @@ const header = document.querySelector("header")
 //URL e Main
 const apiUrl = "https://servicodados.ibge.gov.br/api/v3/noticias?qtd=10"
 
+// Obtém o valor do campo de busca
+//const termoBusca = document.getElementById("search").value;
+
+//
 const main = document.querySelector("main")
 
 //Header
@@ -27,36 +31,40 @@ closeButton.addEventListener('click', () => {
 
 //Main
 
-document.getElementById("form-search").addEventListener("submit", async function (event) {
+async function getBuscaData(termoBusca){
+//document.getElementById("form-search").addEventListener("submit", async function (event) {
+
     //event.preventDefault();
 
-    const termoBusca = document.getElementById("search").value;
-
     try {
-        const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias?q=${termoBusca}`; // URL da API com o termo de busca
-
+        const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?busca=${termoBusca}`; // URL da API com o termo de busca
+        
         const response = await fetch(apiUrlSearch);
         const jsonDataSearch = await response.json();
-
+        
         updateMainContent(jsonDataSearch); 
 
     } catch (error) {
         console.error("Ocorreu um erro ao buscar:", error);
     }
-});
+};
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const termoBuscaSalvo = localStorage.getItem('termoBusca'); 
-
-    if (termoBuscaSalvo) {
-        // Se houver um termo de busca salvo, executa a busca
-        document.getElementById("search").value = termoBuscaSalvo;
-        document.getElementById("form-search").dispatchEvent(new Event('submit')); 
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const termoBusca = urlSearchParams.get('search');
+    
+    if (termoBusca) {
+        // Se houver um termo de busca na URL, preenche o campo de busca com esse valor
+        document.getElementById("search").value = termoBusca;
+        // Em seguida, você pode realizar a busca com base nesse termo de busca, se necessário
+        getBuscaData(termoBusca);
     } else {
+        // Se não houver um termo de busca na URL, você pode executar alguma outra ação (por exemplo, chamar asyncFoo)
         asyncFoo();
     }
 });
+
 
 async function asyncFoo() {
 
