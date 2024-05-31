@@ -146,10 +146,13 @@ async function asyncFoo() {
         console.log(e.message);
     }
 }
-
+/*
 function updateMainContent(data) {
     let html = '';
 //<img src="${data.items[i].imagens}" alt="Imagem da Notícia"/>
+
+    const imagensStringificadas = []
+
     for (let i = 0; i < 10; i++) {
 
         const imagemObjeto = JSON.parse(data.items[i].imagens);
@@ -171,4 +174,45 @@ function updateMainContent(data) {
 
     }
     main.innerHTML = html;
+}*/
+
+function updateMainContent(data) {
+    let html = '';
+    const imagensStringificadas = [];
+    const apiUrl = 'https://servicodados.ibge.gov.br/api/v3/'; // URL base da API do IBGE
+
+    for (let i = 0; i < 10; i++) {
+        const imagemObjeto = data.items[i].imagens; // Objeto contendo as URLs das imagens
+
+        // Verifica se o objeto contém as URLs da imagem
+        if (imagemObjeto) {
+            const caminhoDaImagemIntro = apiUrl + imagemObjeto;
+            //const caminhoDaImagemFulltext = apiUrl + imagemObjeto.image_fulltext;
+
+            imagensStringificadas.push(JSON.stringify(caminhoDaImagemIntro));
+
+            html += `
+            <div class="div">
+                <ul>
+                    <li>
+                        <a href="${caminhoDaImagemIntro}" target="_blank">
+                            <img src="${caminhoDaImagemIntro}" alt="Imagem da Notícia Intro"/>
+                        </a>
+                        <h2>${data.items[i].titulo}</h2>
+                        <p>${data.items[i].introducao}</p>
+                        <a href="${data.items[i].link}" target="_blank">${data.items[i].link}</a>
+                    </li>
+                </ul>
+            </div>
+            `;
+        }
+    }
+    
+    main.innerHTML = html;
+
+    console.log(JSON.stringify(imagensStringificadas)); // Aqui você tem as URLs das imagens em formato de string
 }
+
+
+
+

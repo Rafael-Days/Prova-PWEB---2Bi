@@ -23,10 +23,19 @@
                 <form method="dialog" id="form-filtro">
                     <section id="sec-form">
                         <p id="p=form">
-                            <label>Tipo:</label>
-                            <input type="submit" id="button-tipo" />
-                            <label>Quantidade:</label>
-                            <input type="submit" id="button-qtd" />
+                            <label for="tipo">Tipo:</label>
+                            <select id="button-tipo" name="tipo">
+                                <option>Selecione</option>
+                                <option>Notícia</option>
+                                <option>Realese</option>
+                              </select>
+                            <label for="qtd">Quantidade:</label>
+                            <select id="button-qtd" name="qtd">
+                                <option>Selecione</option>
+                                <option>5</option>
+                                <option>10</option>
+                                <option>20</option>
+                              </select>
                             <label>De:</label>
                             <input type="submit" id="button-de" />
                             <label>Até:</label>
