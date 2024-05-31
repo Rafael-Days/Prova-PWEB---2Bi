@@ -24,23 +24,40 @@ header{
     background-color: #4682b4;
 }
 
-#form-filtro {
+select{
+    cursor: pointer;
+}
+
+#p-form{
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Duas colunas com largura igual */
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+}
+
+label {
+    text-align: center;
+}
+
+select,
+input[type="date"] {
+    width: 100%;
+}
+
+p {
+    margin: 0;
+}
+/*
+#p-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr); ;
-    gap: 10px; /* Espaçamento entre os itens */
-}
-
-#sec-form {
-    grid-column: 1 / -1; /* A seção ocupará todas as colunas do grid */
-}
-
-#sec-form label {
-    display: block; /* Exibir cada label em uma linha */
-}
+    gap: 10px; 
+    justify-items: stretch;
+}*/
 
 #sec-form input[type="submit"] {
-    width: 50%; /* Fazer os inputs ocuparem toda a largura da coluna */
+    width: 100%;
 }
 
 #dialog-filtro{

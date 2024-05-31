@@ -22,24 +22,25 @@
             <dialog id="dialog-filtro">
                 <form method="dialog" id="form-filtro">
                     <section id="sec-form">
-                        <p id="p=form">
-                            <label for="tipo">Tipo:</label>
-                            <select id="button-tipo" name="tipo">
+                        <p id="p-form">
+                            <label for="button-tipo">Tipo:</label>
+                            <select id="button-tipo" name="tipo" value="Selecione">
                                 <option>Selecione</option>
                                 <option>Notícia</option>
                                 <option>Realese</option>
-                              </select>
-                            <label for="qtd">Quantidade:</label>
+                            </select>
+                            <label for="button-qtd">Quantidade:</label>
                             <select id="button-qtd" name="qtd">
-                                <option>Selecione</option>
                                 <option>5</option>
-                                <option>10</option>
+                                <option selected>10</option>
                                 <option>20</option>
-                              </select>
-                            <label>De:</label>
-                            <input type="submit" id="button-de" />
-                            <label>Até:</label>
-                            <input type="submit" id="button-ate" />
+                            </select>
+                            <label for="button-de">De:</label>
+                            <input type="date" id="button-de" name="trip-start" value="2018-07-22" min="2018-01-01"
+                                max="2018-12-31" />
+                            <label for="button-ate">Até:</label>
+                            <input type="date" id="button-ate" name="trip-end" value="2018-07-22" min="2018-01-01"
+                                max="2018-12-31" />
 
                             <button type="submit" id="close-button">X</button>
                         </p>
