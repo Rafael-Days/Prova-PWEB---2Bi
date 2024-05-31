@@ -33,6 +33,7 @@ select{
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 10px;
+    justify-items: start;
 }
 
 label {
@@ -41,7 +42,14 @@ label {
 
 select,
 input[type="date"] {
-    width: 100%;
+    width: 90%;
+}
+
+#aplicarForm{
+    background-color: #4682b4;
+    color: white;
+    width: 90vw;
+    max-width: 90vw;/*COM ERRO*/
 }
 
 p {
