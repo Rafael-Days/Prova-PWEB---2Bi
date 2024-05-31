@@ -24,6 +24,25 @@ header{
     background-color: #4682b4;
 }
 
+#form-filtro {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Duas colunas com largura igual */
+    grid-template-rows: repeat(2, 1fr); ;
+    gap: 10px; /* Espaçamento entre os itens */
+}
+
+#sec-form {
+    grid-column: 1 / -1; /* A seção ocupará todas as colunas do grid */
+}
+
+#sec-form label {
+    display: block; /* Exibir cada label em uma linha */
+}
+
+#sec-form input[type="submit"] {
+    width: 50%; /* Fazer os inputs ocuparem toda a largura da coluna */
+}
+
 #dialog-filtro{
     width: 40vw;
     height: 20vh;
@@ -33,6 +52,7 @@ header{
 button,
 input{
     border: 0;
+    cursor: pointer;
 }
 
 #header {
@@ -60,9 +80,6 @@ input{
     background-color: white;
     padding: 0;
     border-radius: 7px;
-}
-
-input[type="submit"] {
     cursor: pointer;
     position: absolute; 
     top: 0;
@@ -70,6 +87,15 @@ input[type="submit"] {
     height: 100%; 
     width: 40px;
 }
+/*
+input[type="submit"] {
+    cursor: pointer;
+    position: absolute; 
+    top: 0;
+    right: 0; 
+    height: 100%; 
+    width: 40px;
+}*/
 
 #div-filtro{
     display: grid;
@@ -119,6 +145,11 @@ ul{
 li {
     list-style-type: none;
     width: 100%;
+}
+
+img{
+    width: 40px;
+    height: 40px;
 }
 
 footer{

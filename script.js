@@ -1,6 +1,6 @@
 const botaoAbrirFiltro = document.getElementById('abrir-filtro');
 
-const botaoFiltro = document.getElementById('button-filtro');
+const botaoTipo = document.getElementById('button-tipo');
 
 const closeButton = document.getElementById('close-button')
 
@@ -9,6 +9,7 @@ const dialogF = document.getElementById('dialog-filtro')
 const header = document.getElementById("header")
 
 //URL e Main
+//const apiUrl = "https://servicodados.ibge.gov.br/api/v3/noticias?qtd=10&tipo=noticia"
 const apiUrl = "https://servicodados.ibge.gov.br/api/v3/noticias?qtd=10"
 
 // Obtém o valor do campo de busca
@@ -31,6 +32,32 @@ closeButton.addEventListener('click', () => {
 
 //Main
 
+async function getBuscaData() {
+    try {
+        // Obtém a string de busca da URL
+        const queryString = window.location.search;
+        
+        // Remove o ponto de interrogação da string de busca e decodifica os caracteres especiais
+        const termoBusca = decodeURIComponent(queryString.slice(1)); 
+
+        //const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?tipo=noticia&busca=${termoBusca}`;
+        const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?busca=${termoBusca}`;
+        const response = await fetch(apiUrlSearch);
+        const jsonDataSearch = await response.json();
+
+        if (jsonDataSearch.items && jsonDataSearch.items.length > 0) {
+            // Se houver resultados, atualiza o conteúdo principal
+            updateMainContent(jsonDataSearch);
+        } else {
+            // Se não houver resultados, exibe uma mensagem de alerta
+            semBusca();
+        }
+    } catch (error) {
+        console.error("Ocorreu um erro ao buscar:", error);
+    }
+};
+
+/*
 async function getBuscaData(termoBusca) {
     try {
         const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?busca=${termoBusca}`;
@@ -48,13 +75,14 @@ async function getBuscaData(termoBusca) {
         console.error("Ocorreu um erro ao buscar:", error);
     }
 };
-
+*/
+//VOLTA AO INÍCIO, CLICANDO NO HEADER
 header.addEventListener('click', function () {
-    // Pegar a URL atual
+
     const urlAtual = window.location.href;
-    // Remover a parte da URL após o caminho base
+
     const urlSemSearch = urlAtual.split('?')[0];
-    // Redirecionar para a URL sem a parte da busca
+
     window.location.href = urlSemSearch;
 });
 
@@ -93,10 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (termoBusca) {
         // Se houver um termo de busca na URL, preenche o campo de busca com esse valor
         document.getElementById("search").value = termoBusca;
-        // Em seguida, você pode realizar a busca com base nesse termo de busca, se necessário
+        
         getBuscaData(termoBusca);
     } else {
-        // Se não houver um termo de busca na URL, você pode executar alguma outra ação (por exemplo, chamar asyncFoo)
         asyncFoo();
     }
 });
