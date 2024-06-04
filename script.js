@@ -252,7 +252,9 @@ function updateMainContent(data) {
 function updateMainContent(data) {
     let html = '';
     const imagensStringificadas = [];
-    const apiUrl = 'https://servicodados.ibge.gov.br/api/v3/'; // URL base da API do IBGE
+    const apiUrl = 'https://servicodados.ibge.gov.br/api/v3/noticias/images'; // URL base da API do IBGE
+    //const apiUrl = "https://agenciadenoticias.ibge.gov.br/images/agenciadenoticias/ibge/"
+    //https://agenciadenoticias.ibge.gov.br/images/agenciadenoticias/ibge/
 
     if (data.items && data.items.length > 0) {
         const totalItems = Math.min(data.items.length, 10); 
