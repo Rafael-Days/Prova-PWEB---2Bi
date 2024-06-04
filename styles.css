@@ -79,6 +79,13 @@ p {
     border-radius: 5px; 
 }
 
+#button-de,
+#button-ate,
+select{
+    border-radius: 3px;
+    border: 1px solid;
+}
+
 button,
 input{
     border: 0;
@@ -87,6 +94,7 @@ input{
 
 #header {
     padding-bottom: 30px;
+    text-align: center;
     font-size: 35px;
     font-weight: bold;
     cursor: pointer;
@@ -107,7 +115,7 @@ input{
 }
 
 #close-button{
-    background-color: white;
+    background-color: transparent;
     padding: 0;
     border-radius: 7px;
     cursor: pointer;

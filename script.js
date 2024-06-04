@@ -158,7 +158,7 @@ async function asyncFoo() {
     }
 }
 
-document.getElementById("form-filtro").addEventListener("submit", async function(event) {
+document.getElementById("form-filtro").addEventListener("submit", async function() {
 
     await handleChange();
 });
