@@ -167,9 +167,13 @@ async function handleChange() {
     try {
         var selectBoxTipo = document.getElementById("button-tipo");
         var selectBoxQtd = document.getElementById("button-qtd");
+        var inputDe = document.getElementById("button-de");
+        var inputAte = document.getElementById("button-ate");
         
         var selectedValueTipo = selectBoxTipo.options[selectBoxTipo.selectedIndex].value;
         var selectedValueQtd = selectBoxQtd.options[selectBoxQtd.selectedIndex].value;
+        var deValue = inputDe.value;
+        var ateValue = inputAte.value;
 
         // Obtém o termo de busca da URL, se houver
         const queryString = window.location.search;
@@ -181,6 +185,12 @@ async function handleChange() {
         searchParams.append('qtd', selectedValueQtd);
         if (searchTerm) {
             searchParams.append('busca', searchTerm);
+        }
+        if (deValue) {
+            searchParams.append('de', deValue);
+        }
+        if (ateValue) {
+            searchParams.append('ate', ateValue);
         }
 
         const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?${searchParams.toString()}`;
@@ -199,10 +209,14 @@ async function handleChange() {
             // Se não houver resultados, exibe uma mensagem de alerta
             semBusca();
         }
+
+        console.log("Data de Início (De):", deValue);
+        console.log("Data de Término (Até):", ateValue);
     } catch (error) {
         console.error("Ocorreu um erro ao aplicar o filtro:", error);
     }
 }
+
 
 
 /*
@@ -262,6 +276,7 @@ function updateMainContent(data) {
                             <h2>${data.items[i].titulo}</h2>
                             <p>${data.items[i].introducao}</p>
                             <a href="${data.items[i].link}" target="_blank">${data.items[i].link}</a>
+                            <p class="dataPubli">${data.items[i].data_publicacao}</p>
                         </li>
                     </ul>
                 </div>
