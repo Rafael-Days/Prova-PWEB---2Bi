@@ -257,7 +257,7 @@ function updateMainContent(data) {
     //https://agenciadenoticias.ibge.gov.br/images/agenciadenoticias/ibge/
 
     if (data.items && data.items.length > 0) {
-        const totalItems = Math.min(data.items.length, 10); 
+        const totalItems = Math.min(data.items.length, 20); 
 
         for (let i = 0; i < totalItems; i++) {
             const imagemObjeto = data.items[i].imagens; 
