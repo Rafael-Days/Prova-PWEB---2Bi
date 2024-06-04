@@ -36,9 +36,9 @@ async function getBuscaData() {
     try {
         // Obtém a string de busca da URL
         const queryString = window.location.search;
-        
+
         // Remove o ponto de interrogação da string de busca e decodifica os caracteres especiais
-        const termoBusca = decodeURIComponent(queryString.slice(1)); 
+        const termoBusca = decodeURIComponent(queryString.slice(1));
 
         //const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?tipo=noticia&busca=${termoBusca}`;
         const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?busca=${termoBusca}`;
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (termoBusca) {
         // Se houver um termo de busca na URL, preenche o campo de busca com esse valor
         document.getElementById("search").value = termoBusca;
-        
+
         getBuscaData(termoBusca);
     } else {
         asyncFoo();
@@ -146,6 +146,47 @@ async function asyncFoo() {
         console.log(e.message);
     }
 }
+
+document.getElementById("form-filtro").addEventListener("submit", async function(event) {
+
+    await handleChange();
+});
+
+async function handleChange() {
+    try {
+        var selectBoxTipo = document.getElementById("button-tipo");
+        var selectBoxQtd = document.getElementById("button-qtd");
+        
+        var selectedValueTipo = selectBoxTipo.options[selectBoxTipo.selectedIndex].value;
+        var selectedValueQtd = selectBoxQtd.options[selectBoxQtd.selectedIndex].value;
+
+        // Atualiza a URL da API com os valores selecionados
+        const searchParams = new URLSearchParams();
+        searchParams.append('tipo', selectedValueTipo);
+        searchParams.append('qtd', selectedValueQtd);
+
+        const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?${searchParams.toString()}`;
+        
+        const response = await fetch(apiUrlSearch);
+        const jsonDataSearch = await response.json();
+
+        if (jsonDataSearch.items && jsonDataSearch.items.length > 0) {
+            // Se houver resultados, atualiza o conteúdo principal
+            updateMainContent(jsonDataSearch);
+            
+            // Atualiza a URL com os parâmetros do filtro
+            const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+            window.history.pushState({}, '', newUrl);
+        } else {
+            // Se não houver resultados, exibe uma mensagem de alerta
+            semBusca();
+        }
+    } catch (error) {
+        console.error("Ocorreu um erro ao aplicar o filtro:", error);
+    }
+}
+
+
 /*
 function updateMainContent(data) {
     let html = '';
@@ -181,33 +222,38 @@ function updateMainContent(data) {
     const imagensStringificadas = [];
     const apiUrl = 'https://servicodados.ibge.gov.br/api/v3/'; // URL base da API do IBGE
 
-    for (let i = 0; i < 10; i++) {
-        const imagemObjeto = data.items[i].imagens; // Objeto contendo as URLs das imagens
+    if (data.items && data.items.length > 0) {
+        const totalItems = Math.min(data.items.length, 10); 
 
-        // Verifica se o objeto contém as URLs da imagem
-        if (imagemObjeto) {
-            const caminhoDaImagemIntro = apiUrl + imagemObjeto;
-            //const caminhoDaImagemFulltext = apiUrl + imagemObjeto.image_fulltext;
+        for (let i = 0; i < totalItems; i++) {
+            const imagemObjeto = data.items[i].imagens; 
 
-            imagensStringificadas.push(JSON.stringify(caminhoDaImagemIntro));
+            if (imagemObjeto) {
+                const caminhoDaImagemIntro = apiUrl + imagemObjeto;
+                //const caminhoDaImagemFulltext = apiUrl + imagemObjeto.image_fulltext;
 
-            html += `
-            <div class="div">
-                <ul>
-                    <li>
-                        <a href="${caminhoDaImagemIntro}" target="_blank">
-                            <img src="${caminhoDaImagemIntro}" alt="Imagem da Notícia Intro"/>
-                        </a>
-                        <h2>${data.items[i].titulo}</h2>
-                        <p>${data.items[i].introducao}</p>
-                        <a href="${data.items[i].link}" target="_blank">${data.items[i].link}</a>
-                    </li>
-                </ul>
-            </div>
-            `;
+                imagensStringificadas.push(JSON.stringify(caminhoDaImagemIntro));
+
+                html += `
+                <div class="div">
+                    <ul>
+                        <li>
+                            <a href="${caminhoDaImagemIntro}" target="_blank">
+                                <img src="${caminhoDaImagemIntro}" alt="Imagem da Notícia Intro"/>
+                            </a>
+                            <h2>${data.items[i].titulo}</h2>
+                            <p>${data.items[i].introducao}</p>
+                            <a href="${data.items[i].link}" target="_blank">${data.items[i].link}</a>
+                        </li>
+                    </ul>
+                </div>
+                `;
+            }
         }
+    } else {
+        semBusca();
     }
-    
+
     main.innerHTML = html;
 
     console.log(JSON.stringify(imagensStringificadas)); // Aqui você tem as URLs das imagens em formato de string
