@@ -12,7 +12,6 @@ const header = document.getElementById("header")
 //const apiUrl = "https://servicodados.ibge.gov.br/api/v3/noticias?qtd=10&tipo=noticia"
 const apiUrl = "https://servicodados.ibge.gov.br/api/v3/noticias?qtd=10"
 
-// Obtém o valor do campo de busca
 //const termoBusca = document.getElementById("search").value;
 
 //
@@ -20,12 +19,10 @@ const main = document.querySelector("main")
 
 //Header
 
-// Adiciona um event listener para abrir o modal quando o botão for clicado
 botaoAbrirFiltro.addEventListener('click', () => {
     dialogF.showModal()
 });
 
-// Adiciona um event listener para fechar o modal quando o botão dentro do modal for clicado
 closeButton.addEventListener('click', () => {
     dialogF.close();
 });
@@ -34,14 +31,28 @@ closeButton.addEventListener('click', () => {
 
 async function getBuscaData() {
     try {
+        var selectBoxTipo = document.getElementById("button-tipo");
+        var selectBoxQtd = document.getElementById("button-qtd");
+        
+        var selectedValueTipo = selectBoxTipo.options[selectBoxTipo.selectedIndex].value;
+        var selectedValueQtd = selectBoxQtd.options[selectBoxQtd.selectedIndex].value;
+
         // Obtém a string de busca da URL
         const queryString = window.location.search;
 
         // Remove o ponto de interrogação da string de busca e decodifica os caracteres especiais
         const termoBusca = decodeURIComponent(queryString.slice(1));
 
-        //const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?tipo=noticia&busca=${termoBusca}`;
-        const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?busca=${termoBusca}`;
+        // Atualiza a URL da API com os valores selecionados e o termo de busca, se houver
+        const searchParams = new URLSearchParams();
+        searchParams.append('tipo', selectedValueTipo);
+        searchParams.append('qtd', selectedValueQtd);
+        if (termoBusca) {
+            searchParams.append('busca', termoBusca);
+        }
+
+        const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?${searchParams.toString()}`;
+        
         const response = await fetch(apiUrlSearch);
         const jsonDataSearch = await response.json();
 
@@ -55,7 +66,7 @@ async function getBuscaData() {
     } catch (error) {
         console.error("Ocorreu um erro ao buscar:", error);
     }
-};
+}
 
 /*
 async function getBuscaData(termoBusca) {
@@ -160,10 +171,17 @@ async function handleChange() {
         var selectedValueTipo = selectBoxTipo.options[selectBoxTipo.selectedIndex].value;
         var selectedValueQtd = selectBoxQtd.options[selectBoxQtd.selectedIndex].value;
 
-        // Atualiza a URL da API com os valores selecionados
+        // Obtém o termo de busca da URL, se houver
+        const queryString = window.location.search;
+        const searchTerm = decodeURIComponent(queryString.slice(1));
+
+        // Atualiza a URL da API com os valores selecionados e o termo de busca, se houver
         const searchParams = new URLSearchParams();
         searchParams.append('tipo', selectedValueTipo);
         searchParams.append('qtd', selectedValueQtd);
+        if (searchTerm) {
+            searchParams.append('busca', searchTerm);
+        }
 
         const apiUrlSearch = `https://servicodados.ibge.gov.br/api/v3/noticias/?${searchParams.toString()}`;
         
